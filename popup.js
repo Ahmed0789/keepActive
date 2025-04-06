@@ -1,28 +1,26 @@
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
     const toggle = document.getElementById("toggle-active");
+    const intervalInput = document.getElementById("interval");
 
-    // Load the current state from storage
-    await chrome.storage.local.get(["isActive"], (result) => {
-        toggle.checked = result.isActive || false;
-    });
+    // Load the current state from localStorage
+    const isActive = localStorage.getItem("isActive") === "true"; // localStorage stores strings
+    toggle.checked = isActive;
+
+    // Load the interval from localStorage or use default value
+    const interval = localStorage.getItem("interval") || 3;
+    intervalInput.value = interval;
 
     // Save the state when the toggle is changed
-    toggle.addEventListener("change", async () => {
+    toggle.addEventListener("change", () => {
         const isActive = toggle.checked;
-        await chrome.storage.local.set({ isActive });
+        localStorage.setItem("isActive", isActive.toString()); // Save as a string
         console.log("Activity simulation is now:", isActive ? "Enabled" : "Disabled");
     });
 
-    const intervalInput = document.getElementById("interval");
-
-    // Load and save the activity interval
-    await chrome.storage.local.get(["interval"], (result) => {
-        intervalInput.value = result.interval || 3;
-    });
-
-    intervalInput.addEventListener("change", async () => {
+    // Save the interval when it's changed
+    intervalInput.addEventListener("change", () => {
         const interval = Number(intervalInput.value);
-        await chrome.storage.local.set({ interval });
+        localStorage.setItem("interval", interval.toString()); // Save as a string
         console.log("Activity interval set to:", interval, "minutes");
     });
 });
