@@ -1,5 +1,5 @@
 // Setup alarm to periodically wake the service worker
-chrome.alarms.create("keepAlive", { delayInMinutes: 0.1, periodInMinutes: 3 });
+chrome.alarms.create("keepAlive", { delayInMinutes: 0.1, periodInMinutes: 1 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === "keepAlive") {
@@ -36,11 +36,13 @@ function simulateActivity() {
             target: { tabId: tabs[0].id },
             func: () => console.log("📡 Browser activity simulated!")
           });
-          sendNotification("✅ Activity simulated successfully!");
+         
         }
       });
+      addToLog('Simulated activity');
     } else {
       console.log("⛔ Activity simulation is disabled.");
+      addToLog('Disabled simulating activity');
     }
   });
 }
@@ -74,6 +76,15 @@ chrome.storage.onChanged.addListener((changes, area) => {
     startSimulation();
   }
 });
+
+function addToLog(message) {
+  chrome.storage.local.get('activityLog', ({ activityLog = [] }) => {
+    const entry = `[${new Date().toLocaleTimeString()}] ${message}`;
+    activityLog.push(entry);
+    chrome.storage.local.set({ activityLog });
+    chrome.runtime.sendMessage({ type: 'log-update', data: activityLog });
+  });
+}
 
 // Start simulation on service worker load
 startSimulation();
