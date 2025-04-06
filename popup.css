@@ -1,41 +1,53 @@
+/* Global Styling */
 body {
     margin: 0;
-    padding: 20px;
-    font-family: Arial, sans-serif;
+    padding: 16px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
     background-color: var(--popup-background);
     color: var(--popup-text);
 }
 
 .popup-container {
-    width: 300px; /* Medium size */
-    margin: 0 auto;
+    width: 320px;
+    max-width: 100%;
+    margin: auto;
 }
 
+/* Headings */
 h1,
 h2 {
     text-align: center;
+    margin: 0 0 10px;
+    font-size: 18px;
 }
 
-label {
-    font-weight: bold;
-    margin-top: 10px;
+/* Sections */
+.section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 12px 0;
 }
 
+/* Interval Input */
 input[type="number"] {
-    width: 80px;
-}
-
-.log-container {
+    width: 60px;
+    padding: 4px;
+    font-size: 14px;
     border: 1px solid var(--popup-text);
-    padding: 10px;
-    border-radius: 5px;
+    border-radius: 4px;
+    background-color: var(--popup-background);
+    color: var(--popup-text);
 }
 
+/* Switch */
 .switch {
     position: relative;
     display: inline-block;
-    width: 34px;
-    height: 20px;
+    width: 40px;
+    height: 22px;
+    margin-right: 8px;
 }
 
 .switch input {
@@ -52,20 +64,20 @@ input[type="number"] {
     right: 0;
     bottom: 0;
     background-color: #ccc;
-    transition: 0.4s;
-    border-radius: 20px;
+    transition: background-color 0.3s;
+    border-radius: 34px;
 }
 
 .slider:before {
-    position: absolute;
     content: "";
-    height: 14px;
-    width: 14px;
+    position: absolute;
+    height: 16px;
+    width: 16px;
     left: 3px;
     bottom: 3px;
     background-color: white;
-    transition: 0.4s;
     border-radius: 50%;
+    transition: transform 0.3s;
 }
 
 input:checked + .slider {
@@ -73,18 +85,40 @@ input:checked + .slider {
 }
 
 input:checked + .slider:before {
-    transform: translateX(14px);
+    transform: translateX(18px);
 }
 
-/* Light/Dark Theme Variables */
+.toggle-label {
+    flex-grow: 1;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* Log Container */
+.log-container {
+    margin-top: 16px;
+    padding: 10px;
+    border: 1px solid var(--popup-text);
+    border-radius: 6px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.log-container ul {
+    padding-left: 16px;
+    margin: 0;
+    list-style: disc;
+}
+
+/* Light/Dark Mode */
 :root {
-    --popup-background: #f9f9f9; /* Light mode */
-    --popup-text: #000000;
+    --popup-background: #f9f9f9;
+    --popup-text: #111;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --popup-background: #2c2c2c; /* Dark mode */
-        --popup-text: #ffffff;
+        --popup-background: #2c2c2c;
+        --popup-text: #f0f0f0;
     }
 }
