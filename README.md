@@ -3,6 +3,7 @@
 ## Overview
 The **Keep Active** Chrome Extension is designed to simulate browser activity periodically, ensuring your status remains active on platforms like Microsoft Teams and other activity-monitoring tools. This lightweight and customizable extension is perfect for those who need to maintain an active presence in the browser.
 
+# Ignore scripts/ folder if your here only for the Chrome extension
 ---
 
 ## Features

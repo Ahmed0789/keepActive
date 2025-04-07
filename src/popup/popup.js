@@ -3,10 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const intervalInput = document.getElementById('interval');
     const logList = document.getElementById('log');
     const clearLogBtn = document.getElementById('clear-log');
+    const statusIndicator = document.getElementById('status-indicator');
+
 
     // Restore state
     chrome.storage.local.get(['isActive', 'interval', 'activityLog'], (data) => {
         toggle.checked = !!data.isActive;
+        statusIndicator.style.display = toggle.checked ? 'inline-block' : 'none';
         intervalInput.value = data.interval || 3;
         updateLogDisplay(data.activityLog || []);
     });
@@ -14,6 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Save toggle
     toggle.addEventListener('change', () => {
         chrome.storage.local.set({ isActive: toggle.checked });
+        statusIndicator.style.display = toggle.checked ? 'inline-block' : 'none';
+
     });
 
     // Save interval
